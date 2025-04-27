@@ -1,8 +1,8 @@
 import Tasks from '#/components/tasks';
 
-function tasks() {
+function Task() {
     return (
         <Tasks />
     )
 }
-export default tasks;
+export default Task;
