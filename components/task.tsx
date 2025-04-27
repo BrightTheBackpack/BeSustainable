@@ -4,6 +4,8 @@
 import { Box, Button, Heading, } from 'theme-ui'
 import Header from '#/components/header'
 import { useState } from 'react';
+import { ref, set, get, child, update } from "firebase/database";
+import {database} from "#/lib/firebase.ts";
 function Task({task, done}) {
     //gets todays date
     const [completed, setCompleted] = useState(done);
@@ -24,6 +26,9 @@ function Task({task, done}) {
         }else{
             setCompleted(true);
             let dateString = `${mm}${dd}${yyyy}`
+            const databaseRef = ref(database, "users");
+            const snapshot = get(child(databaseRef, userData?.uid));
+         
             //sets the completed task to true in the database
 
 
