@@ -1,4 +1,4 @@
-import Tasks from '#/components/tasks.tsx';
+import Tasks from '#/components/tasks';
 
 function tasks() {
     return (
