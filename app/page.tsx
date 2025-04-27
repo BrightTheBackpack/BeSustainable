@@ -9,17 +9,7 @@ import  Home  from '#/components/home'
 export const dynamic = "force-dynamic";
 import { getAuthenticatedAppForUser } from '#/lib/firebase/serverApp';
 
-const App =  ({ Component, pageProps }: AppProps) => {
-
-
-
-
-  return (
-    <div>
-        <Home  />
-      
-    </div>
-  )
+export default function app() {
+  return <Home />;
 }
 
-export default App
