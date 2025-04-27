@@ -3,10 +3,20 @@
 
 import { Box, Button, Heading, } from 'theme-ui'
 import { Inter } from 'next/font/google'
+import { useRouter } from 'next/navigation';
 const inter = Inter({  
     subsets: ['latin'] })
 
 function HeaderSignin() {
+    const router = useRouter(); // Initialize the router
+    const handleSignIn = (event) => {
+    // event.preventDefault();
+    // signInWithGoogle();
+    router.push('/signin');
+  };
+  const home = (event) => { 
+    router.push('/');
+  }
   
 
   return (
@@ -28,11 +38,8 @@ function HeaderSignin() {
         color: 'white',
     }}>
     
-    <Button id = "your account" sx = {{variant: 'buttons.flush'}}>
-    <Heading sx = {{fontWeight: 'body'}}>sign in</Heading>
 
-    </Button>
-    <Button id = "home" sx = {{variant: 'buttons.flush'}} >
+    <Button id = "home" sx = {{variant: 'buttons.flush'}} onClick={home} >
     <Heading sx = {{fontWeight: 'body'}}>home</Heading>
     </Button>
 

@@ -13,17 +13,26 @@ import { database } from "#/lib/firebase.ts";
 import { useEffect, useState } from 'react';
 import { setCookie, deleteCookie } from "cookies-next";
 import { useUser } from '#/components/user.tsx';
+import { useRouter } from "next/navigation"; // Import useRouter
+
 const inter = Inter({  
     subsets: ['latin'] })
 function HeaderLanding() {
     //function from user.tsx that grabs user data if a user is signed in
     const userData = useUser();
+    const router = useRouter(); // Initialize the router
+
 
 
     //function to handle signin with google, from auth.js
   const handleSignIn = (event) => {
-    event.preventDefault();
-    signInWithGoogle();
+    // event.preventDefault();
+    // signInWithGoogle();
+    router.push('/signin');
+  };
+  const handleSignUp = (event) => {
+    console.log('sign up')
+    router.push('/signup');
   };
 
 
@@ -46,14 +55,14 @@ function HeaderLanding() {
             color: 'white',
         }}>
         
-        <Button id = "your account" sx = {{variant: 'buttons.flush'}}>
+        <Button id = "your account" sx = {{variant: 'buttons.flush'}} onClick={handleSignIn}>
         <Heading sx = {{fontWeight: 'body'}}>sign in</Heading>
 
         </Button>
-        <Button id = "sign out" sx = {{variant: 'buttons.flush'}} onClick={handleSignIn}>
+        <Button id = "sign out" sx = {{variant: 'buttons.flush'}} onClick={handleSignUp}>
         <Heading sx = {{fontWeight: 'body'}}>sign up</Heading>
         </Button>
-        <Button id = "sign out" sx = {{variant: 'buttons.flush'}} onClick={handleSignIn}>
+        <Button id = "sign out" sx = {{variant: 'buttons.flush'}} >
         <Heading sx = {{fontWeight: 'body'}}>{userData?.email}</Heading>
         </Button>
 

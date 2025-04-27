@@ -10,13 +10,14 @@ import { useRouter } from "next/navigation"; // Import useRouter
 const inter = Inter({  
     subsets: ['latin'] })
 
-function Signin() {
+function Signup() {
     const router = useRouter(); // Initialize the router
     const handleSignIn = (event) => {
         event.preventDefault();
         signInWithGoogle();
         router.push('/');
       };
+     
 
 
         return (
@@ -31,7 +32,7 @@ function Signin() {
             <Heading sx={{
                 fontSize: '60px',
             }}>
-                sign in
+                sign up
             </Heading>
             <Box sx={{
                 display: 'flex',
@@ -96,7 +97,7 @@ function Signin() {
                 }}
                 onClick={handleSignIn}
             >
-                Sign in with Google
+                sign up with Google
             </Button>
         </Box>
         </Box>
@@ -107,4 +108,4 @@ function Signin() {
  
 
 
-export default Signin
+export default Signup

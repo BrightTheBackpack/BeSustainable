@@ -24,6 +24,7 @@ function Home() {
     const [data, setData] = useState(null);
     const [task, setTask] = useState(null);
     const [completed, setCompleted] = useState(null)
+    const [streak, setStreak] = useState(null);
     //gets user data from user.tsx
     const userData = useUser();
     //sets a reference to the users "directory" of the DB
@@ -58,10 +59,12 @@ function Home() {
                     let id = snapshot.val()['challenges'][date]['challengeID'];
                     //gets the challenge description from the ID
                     const dailyChallenge = challengeData[id];
-                    let completed = snapshot.val()['challenges'][date]['completed'];
-                    //sets the task using the hook setup earlier
+                    //gets completion status
+                    let complete = snapshot.val()['challenges'][date]['completed'];
+                    console.log(snapshot.val()['challenges'][date])
                     setTask(dailyChallenge);
-                    setCompleted(completed);
+                    setCompleted(complete);
+                
 
                 }else{//challenge has not been set for today
                     //gets a random taskID
@@ -79,6 +82,44 @@ function Home() {
 
 
 
+                }
+                let yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                const mm2 = String(yesterday.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+                const dd2 = String(yesterday.getDate()).padStart(2, '0');
+                const yyyy2 = yesterday.getFullYear();
+                yesterday = `${mm2}${dd2}${yyyy2}`
+                //checks if the challenge for yesterday was completed
+                if(snapshot.val()['challenges'][yesterday]){
+                    //if it was completed, increase the streak by 1
+                    console.log(snapshot.val()['challenges'][yesterday]['completed'])
+                    console.log(snapshot.val()["streak"])
+                    if(snapshot.val()['challenges'][yesterday]['completed'] == true){
+                        console.log("completed")
+                      let streaktemp = snapshot.val()['streak'];
+                      console.log(streaktemp)
+                      setStreak(streaktemp)
+                    }else{//if it was not completed, set the streak to 0
+                        
+                      
+                    }
+                }else{//if there was no challenge for yesterday, set the streak to 0
+                    if (snapshot.val()['challenges'][date]['completed'] == true) {
+                        console.error("Today's challenge was completed, but yesterday's was not.");
+                        // If today's challenge was completed, keep the streak as is
+                        let streaktemp = snapshot.val()['streak'];
+                        console.log(streaktemp);
+                        setStreak(streaktemp);
+                    } else {
+                        console.log("Neither yesterday's nor today's challenge was completed.");
+                        // if neither yesterday's nor today's challenge was completed, set streak to 0
+                        setStreak(0);
+                        update(ref(database, 'users/' + userData.uid), {
+                            streak: 0,
+                        });
+                    }
+               
+                    
                 }
             } else {
                 console.log("No data available for this user.");
@@ -128,7 +169,7 @@ function Home() {
                     flexDirection: 'column',
                     height: '90%',
                 }}>
-                <Task task={task} done={completed} />
+                <Task task={task} done={completed} streak = {streak}/>
             
                 </Box>
             </Box>

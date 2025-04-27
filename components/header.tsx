@@ -2,6 +2,7 @@
 
 import { Box, Button, Heading, } from 'theme-ui'
 import { Inter } from 'next/font/google'
+import { useRouter } from 'next/navigation';
  import {
     signInWithGoogle,
     signOut,
@@ -11,10 +12,25 @@ const inter = Inter({
     subsets: ['latin'] })
 
 function Header() {
+  const router = useRouter(); // Initialize the router
+
   //funcnction for signing out, from auth.js
   const handleSignOut = (event) => {
     event.preventDefault();
     signOut();
+    router.push('/');
+  };
+  const handleHome = (event) => {
+    event.preventDefault();
+    router.push('/');
+  };
+  const handleLeaderboard = (event) => {
+    event.preventDefault();
+    router.push('/leaderboard');
+  };
+  const handlePastTasks = (event) => {
+    event.preventDefault();
+    router.push('/tasks');
   };
 
   return (
@@ -44,16 +60,15 @@ function Header() {
             color: 'white',
         }}>
         {/* home button */}
-        <Button id = "home" sx = {{variant: 'buttons.flush'}}>
+        <Button id = "home" sx = {{variant: 'buttons.flush'}} onClick={handleHome}>
             <Heading sx = {{fontWeight: 'body'}}>home</Heading>
         </Button>
         {/* leaderboard button */}
-        <Button id = "leaderboard" sx = {{variant: 'buttons.flush'}}>
+        {/* <Button id = "leaderboard" sx = {{variant: 'buttons.flush'}}>
         <Heading sx = {{fontWeight: 'body'}}>leaderboard</Heading>
-        {/* past tasks button */}
-        </Button>
-        <Button id = "my tasks" sx = {{variant: 'buttons.flush'}}>
-        <Heading sx = {{fontWeight: 'body'}}>my tasks</Heading>
+        </Button> */}
+        <Button id = "my tasks" sx = {{variant: 'buttons.flush'}} onClick={handlePastTasks}>
+        <Heading sx = {{fontWeight: 'body'}}>past tasks</Heading>
         {/* signout button */}
         </Button>
         <Button id = "sign out" sx = {{variant: 'buttons.flush'}} onClick={handleSignOut}>
