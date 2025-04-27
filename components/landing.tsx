@@ -16,7 +16,7 @@ function Landing() {
 
             {/* Image */}
             <Image
-                src="/earth-hands.jpg" // replace with your actual image path
+                src="https://hc-cdn.hel1.your-objectstorage.com/s/v3/964a3078dc8fa6c8a2813381c57b169e6dc7c6e7_image_1.png" // replace with your actual image path
                 alt="Earth held by hands"
                 sx={{
                     width: '500px',
